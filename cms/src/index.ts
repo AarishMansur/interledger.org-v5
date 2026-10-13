@@ -229,6 +229,7 @@ const SECTION_SCOPED_SLUG_UIDS = [
 /** Content types whose `pathSlug` is `unique: true` across the collection. */
 const UNIQUE_SLUG_UIDS = [
   'api::foundation-page.foundation-page',
+  'api::fundraising-page.fundraising-page',
   'api::summit-page.summit-page',
   'api::hackathon-page.hackathon-page',
   'api::grant-page.grant-page',
@@ -928,6 +929,13 @@ async function configureFieldLabels(strapi: StrapiInstance) {
       hero: 'Hero',
       content: 'Page Content'
     },
+    'api::fundraising-page.fundraising-page': {
+      title: 'Page Title',
+      pathSlug: 'Path Slug',
+      description: 'Short Description',
+      hero: 'Hero',
+      content: 'Page Content'
+    },
     'api::summit-page.summit-page': {
       title: 'Title',
       pathSlug: 'Path Slug',
@@ -1029,6 +1037,17 @@ async function configureFieldLabels(strapi: StrapiInstance) {
       pathSlug:
         'Path of the page, starting and ending with a slash. Example: /about-us/. Missing slashes are added when you save. For the Spanish entry, do not prefix with /es/, it’s added automatically.',
       description: 'Short description used for SEO. Aim for 120–160 characters.'
+    },
+    'api::fundraising-page.fundraising-page': {
+      title:
+        'Enter only the page name, e.g. "Donate" — not "Interledger Foundation | Donate". The "Interledger Foundation |" part is added automatically in the browser tab.',
+      pathSlug:
+        'Path of the page, starting and ending with a slash. Example: /get-involved/donate/. Missing slashes are added when you save. For the Spanish entry, do not prefix with /es/, it’s added automatically.',
+      description:
+        'Short description used for SEO. Aim for 120–160 characters.',
+      // A dynamic-zone hint stays hidden until a block is added, then Strapi
+      // clips it to one line. The same note is on the Donation Cards component.
+      content: ''
     },
     'api::summit-page.summit-page': {
       title:
@@ -1408,12 +1427,16 @@ async function configureFieldLabels(strapi: StrapiInstance) {
       slug: 'Related Post Slug'
     },
     'blocks.donation-cards': {
-      ariaLabel: 'Accessible label for the row'
+      ariaLabel: 'Accessible label for the row',
+      cards: 'Cards'
     },
     'blocks.donation-card': {
+      heading: 'Heading',
       amount: 'Gift size',
+      summary: 'Summary',
       seats: 'Seats line',
       benefitsLabel: 'Benefits label',
+      benefits: 'Benefits',
       ctaText: 'Button text',
       ctaLink: 'Button link',
       ctaExternal: 'Opens in a new tab',
@@ -1847,6 +1870,13 @@ async function configureLayouts(strapi: StrapiInstance) {
       [{ name: 'content', size: 12 }]
     ],
     'api::foundation-page.foundation-page': [
+      [{ name: 'title', size: 12 }],
+      [{ name: 'pathSlug', size: 12 }],
+      [{ name: 'description', size: 12 }],
+      [{ name: 'hero', size: 12 }],
+      [{ name: 'content', size: 12 }]
+    ],
+    'api::fundraising-page.fundraising-page': [
       [{ name: 'title', size: 12 }],
       [{ name: 'pathSlug', size: 12 }],
       [{ name: 'description', size: 12 }],
@@ -2426,6 +2456,17 @@ export default {
     registerDocumentValidation(
       strapi,
       'api::foundation-page.foundation-page',
+      (body) =>
+        mergeValidationErrors(
+          validateHeroFields(body as Parameters<typeof validateHeroFields>[0]),
+          validateContentBlocks(
+            Array.isArray(body.content) ? body.content : undefined
+          )
+        )
+    )
+    registerDocumentValidation(
+      strapi,
+      'api::fundraising-page.fundraising-page',
       (body) =>
         mergeValidationErrors(
           validateHeroFields(body as Parameters<typeof validateHeroFields>[0]),
