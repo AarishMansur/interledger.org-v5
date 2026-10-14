@@ -10,7 +10,12 @@ locale: 'en'
   items={[
     { time: '08:30 - 10:00', activity: 'Registration and breakfast' },
     { time: '10:00 - 10:30', activity: 'Welcome ceremony' },
-    { time: '10:30 - 14:00', activity: 'Session 1: Hacking' },
+    {
+      time: '10:30 - 14:00',
+      activity: 'Session 1: Hacking',
+      additionalInfo:
+        'Participants leave the auditorium and start hacking. Judges remain for a 15-minute briefing'
+    },
     { time: '14:00 - 15:00', activity: 'Lunch' },
     { time: '15:00 - 17:30', activity: 'Session 2: Hacking' },
     { time: '17:30 - 18:00', activity: 'Departures' }
@@ -23,10 +28,16 @@ locale: 'en'
     { time: '07:00 - 08:00', activity: 'Registration and breakfast' },
     { time: '08:00 - 11:00', activity: 'Session 3: Hacking' },
     {
-      time: '11:00 - 12:00',
+      time: '11:00am',
       activity: 'Submission and review',
       additionalInfo:
-        'Final code submitted to hack room folder/repositories; code review; teams practise presentations'
+        'All final code submitted into the GitHub public repositories. Demo videos and presentations uploaded to team folders by 11:00. Code review for each project.'
+    },
+    {
+      time: '11:00 - 12:00',
+      activity: 'Presentation practice',
+      additionalInfo:
+        'Participants move to the main auditorium to practice presentations. Refreshments are served.'
     },
     { time: '12:00 - 13:00', activity: 'Round 1 Judging' },
     { time: '13:00 - 14:30', activity: 'Lunch' },
