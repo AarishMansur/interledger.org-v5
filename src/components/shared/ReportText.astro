@@ -41,7 +41,7 @@ const props = Astro.props
 // real footnote list.
 const sharedClasses = `
 px-lg [&_*:last-child]:mb-0
-text-body-lg-standard [&_:is(p,a,li)]:text-body-lg-standard
+text-body-lg-standard [&_:is(p,a,li):not(:where(th,td)_*)]:text-body-lg-standard
 tablet:px-0
 `
 // Table and list styles come from `[data-prose-report]` (prose/report.css),
