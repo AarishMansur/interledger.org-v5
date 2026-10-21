@@ -69,13 +69,32 @@ To ensure inclusive holiday messaging across global cultures, all submissions mu
 </InfoCard>
 </CardGrid>
 
-<CtaStrip heading="Design Kit" primaryButtonText="Access the complete Design Kit" primaryButtonLink="https://drive.google.com/drive/u/2/folders/16dp5TFcuosKAA3gZsaIO34AON1m44TsT" primaryButtonExternal={true} secondaryButtonText="Read the Guidance" secondaryButtonLink="https://docs.google.com/document/d/1INWzKmaY5Pv_YmFa4z5Jz9fNh8xMqiJHZUY7LeoXcIM/edit?usp=sharing" secondaryButtonExternal={true}>
+<Paragraph>
 
-Need inspiration? Check out our Design Kit, created by our team, featuring sample compositions and color inspiration. Feel free to use these components in your design, but don't feel limited by them either!
+## Design Kit **& References**
 
-</CtaStrip>
+Need inspiration? Check out our Design Kit below, created by our team, featuring sample compositions and color inspiration. Feel free to use these components in your design, but don’t feel limited by them either!
 
-<CardGrid title="Design Kit & References" ariaLabel="design kit" variant="Resource" columns="Three">
+</Paragraph>
+
+<CtaButtons
+  buttons={[
+    {
+      text: 'Access the Design Kit',
+      link: 'https://drive.google.com/drive/u/2/folders/16dp5TFcuosKAA3gZsaIO34AON1m44TsT',
+      style: 'primary',
+      external: true
+    },
+    {
+      text: 'Download Competition Guidance',
+      link: '/uploads/img/original/Interledger_s_Holiday_Contest_4d2a00629f.pdf',
+      style: 'secondary',
+      document: true
+    }
+  ]}
+/>
+
+<CardGrid ariaLabel="design kit" variant="Resource" columns="Three">
 <ResourceCard heading="Sticker Templates" buttonUrl="https://drive.google.com/drive/u/2/folders/1qu6VvSMrQ9TwEyEkFE7XAo34mBbWXss8" buttonText="LINK" buttonExternal={true}>
 
 .
