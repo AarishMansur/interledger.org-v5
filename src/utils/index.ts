@@ -253,7 +253,12 @@ export {
 } from './main/cta'
 export { isFundraiseUpElementHref } from './main/fundraiseUp'
 export {
+  blockIntroA11y,
+  blockIntroLabel,
+  type BlockIntroA11y,
   normalizeBlockIntro,
+  resolveBlockIntro,
+  splitTrailingHeading,
   type NormalizedBlockIntro
 } from './main/blockIntro'
 export {
