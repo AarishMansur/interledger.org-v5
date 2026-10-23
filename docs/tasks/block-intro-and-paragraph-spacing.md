@@ -70,6 +70,21 @@ No restyle in this phase ([D9](../decisions/009-block-intro-and-block-owned-spac
 - **Content follow-up:** `events.mdx` (EN and ES) has a Paragraph ending on "Upcoming Events" right before a CardGrid whose own heading is "October". It now reads as two separate headings, a full section apart.
 - **Admin:** component layouts in `cms/src/index.ts` replace Strapi's generated layout. Every block that gains `intro` must be added there too.
 
+**Phase 2a status (2026-10-19).** The intro is on Image, Video, PDF, Quote, Blockquote, Event card, Logo carousel, Profile grid and CTA buttons.
+
+- **`IntroBlockFrame`** (`shared/IntroBlockFrame.astro`) wraps blocks whose content is a reusable component, so that component stays usable without block spacing. The MDX maps point `Blockquote`, `VideoEmbed` and `PdfEmbed` at the block components.
+- **Blog posts use the framed blocks like every page** (D3, revised 2026-10-22; the first pass kept them unframed). `blog.css` drops its figure and video bottom margins inside a frame, where the frame's padding is the gap.
+- **Logo carousel:**
+  - `standalone` keeps the homepage version as built.
+  - As a content block it has no side padding of its own, so its intro and logos line up with the other blocks (designer, 2026-10-19).
+  - A legacy element after a mid-page carousel reads the default `--block-pb`, not the carousel's 40, so it sits a little too low. No page has one yet.
+- **CTA buttons:**
+  - Self-spaced only when they have an intro. Without one they keep the tight pairing with the paragraph above (`OWNS_ITS_SPACING`), and the preview is approximate for one with an intro.
+  - A heading-only intro drops the buttons' top padding, so the H2 spacer alone is the gap (designer, 2026-10-19).
+- **Pre-existing gaps, not from this work:**
+  - `FundraisingPage` maps none of these blocks, though its schema allows them.
+  - The root `page-preview.astro` doesn't populate image, video or PDF media.
+
 ### Phase 2: Remaining blocks
 
 Same recipe as Phase 1. Blocks that are already built only gain the intro and the block spacing ([D9](../decisions/009-block-intro-and-block-owned-spacing.md#decision)). The listed structural changes follow the ADR's [per-block spec](../decisions/009-block-intro-and-block-owned-spacing.md#b-per-block-spec).
@@ -106,7 +121,8 @@ Implements [A3](../decisions/009-block-intro-and-block-owned-spacing.md#a3-parag
 6. Block pb `var(--block-pb)`.
 7. Delete the `rhythm.css` h2 and fake-intro rules once no content relies on them.
 8. Check that the summit and hackathon `[&>h2]` overrides don't conflict.
-9. Update `src/styles/README.md` and the comment at the top of `rhythm.css`.
+9. Blog posts are in scope ([D3](../decisions/009-block-intro-and-block-owned-spacing.md#decision)): their Paragraph blocks get the same rules under `[data-prose-blog]`. Zero the `blog.css` margins inside the block the same way, and check a post on its narrow column.
+10. Update `src/styles/README.md` and the comment at the top of `rhythm.css`.
 
 ### Phase 4: Cleanup
 

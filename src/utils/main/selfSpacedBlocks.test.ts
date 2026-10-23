@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { SELF_SPACED_BLOCKS } from './dynamicZoneSpacing'
+import { OWNS_ITS_SPACING, SELF_SPACED_BLOCKS } from './dynamicZoneSpacing'
 
 const BLOCKS_DIR = path.resolve(import.meta.dirname, '../../components/blocks')
 const DYNAMIC_ZONE = path.join(BLOCKS_DIR, 'DynamicZone.astro')
@@ -31,8 +31,29 @@ function previewComponentFiles(): Map<string, string> {
   return files
 }
 
+/**
+ * Preview components that hand their whole render to another component,
+ * which sets the root. Listed by hand: following every import would also
+ * count a component that only renders an intro block as one of its children.
+ */
+const RENDERED_BY: Readonly<Record<string, string>> = {
+  'ProfileGridBlock.astro': '../shared/ProfileGrid.astro'
+}
+
+function rendersIntroRoot(file: string): boolean {
+  const source = readFileSync(file, 'utf8')
+  return (
+    source.includes('data-intro-variant=') ||
+    source.includes('<IntroBlockFrame')
+  )
+}
+
+/** Sets the attribute itself, through IntroBlockFrame, or via RENDERED_BY. */
 function setsIntroVariant(file: string): boolean {
-  return readFileSync(file, 'utf8').includes('data-intro-variant=')
+  const delegate = RENDERED_BY[path.basename(file)]
+  return rendersIntroRoot(
+    delegate ? path.resolve(path.dirname(file), delegate) : file
+  )
 }
 
 describe('SELF_SPACED_BLOCKS', () => {
@@ -49,6 +70,7 @@ describe('SELF_SPACED_BLOCKS', () => {
     // here would sit an extra --space-section lower in the preview; one
     // listed without the attribute would lose its gap there.
     const selfSpaced = [...files]
+      .filter(([uid]) => !OWNS_ITS_SPACING.has(uid))
       .filter(([, file]) => setsIntroVariant(file))
       .map(([uid]) => uid)
       .sort()
