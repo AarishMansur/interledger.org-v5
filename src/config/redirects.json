@@ -306,6 +306,11 @@
       "note": "The ambassador FAQ is now the FAQ section on the fellowship page, so there is no separate FAQ route."
     },
     {
+      "source": "/es/grant/call-for-papers/community-led-financial-infrastructure-kenya/",
+      "destination": "/es/blog/community-led-financial-infrastructure-kenya/",
+      "status": 301
+    },
+    {
       "source": "/es/grant/educacion/",
       "destination": "/es/grant/education/",
       "status": 301
