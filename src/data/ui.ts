@@ -719,8 +719,7 @@ export const ui = {
     'homepageHero.cta_explore_tech': 'Explora nuestra tecnología',
     'homepageHero.cta_explore_grants': 'Explora nuestras subvenciones',
     'homepageHero.cta_navigation': 'Acciones destacadas',
-    'homepageHero.image_alt':
-      'Stefan Thomas, cofundador del Protocolo Interledger',
+    'homepageHero.image_alt': '',
     'hackathonHero.logo.alt': 'Open Payments Hackathon by Interledger',
     'hackathonHero.cta_navigation': 'Acciones destacadas',
     'animatedNetwork.problem.heading':
